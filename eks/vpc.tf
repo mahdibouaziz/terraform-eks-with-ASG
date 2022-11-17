@@ -8,7 +8,7 @@ module "vpc" {
   name = local.cluster_name
   cidr = "10.0.0.0/16"
 
-  azs             = ["${local.region}a", "${local.region}b", "${local.region}c"]
+  azs             = slice(data.aws_availability_zones.azs.names, 0, 3)
   private_subnets = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
   public_subnets  = ["10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/24"]
 
@@ -49,6 +49,7 @@ the previous architecture of applications running in
 pods to use the IAM roles of the underlying EKS nodes.
  */
 
+#(lpartie hedhi mbadla khater l ASG)
 module "vpc_cni_irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "~> 4.12"

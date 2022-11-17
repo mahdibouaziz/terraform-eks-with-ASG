@@ -4,7 +4,7 @@ locals {
   region          = "us-east-2"
 
   tags = {
-    Example    = local.name
+    Example    = local.cluster_name
     GithubRepo = "terraform-aws-eks"
     GithubOrg  = "terraform-aws-modules"
   }

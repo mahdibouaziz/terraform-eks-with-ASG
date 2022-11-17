@@ -7,7 +7,7 @@ module "eks" {
   cluster_endpoint_private_access = true
   cluster_endpoint_public_access  = true
 
-  # IPV6
+  # IPV6 (lpartie hedhi mte3 l ipv6 zeyda khater l ASG)
   cluster_ip_family = "ipv6"
 
   # We are using the IRSA created below for permissions
@@ -25,7 +25,8 @@ module "eks" {
     }
     kube-proxy = {}
     vpc-cni = {
-      resolve_conflicts        = "OVERWRITE"
+      resolve_conflicts = "OVERWRITE"
+      #(lpartie hedhi zeyda khater l ASG)
       service_account_role_arn = module.vpc_cni_irsa.iam_role_arn
     }
   }
@@ -35,6 +36,9 @@ module "eks" {
     resources        = ["secrets"]
   }]
 
+
+
+  #(lpartie hedhi zeyda khater l ASG)
   cluster_tags = {
     # This should not affect the name of the cluster primary security group
     # Ref: https://github.com/terraform-aws-modules/terraform-aws-eks/pull/2006
@@ -45,6 +49,7 @@ module "eks" {
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets
 
+  #(lpartie hedhi zeyda khater l ASG)
   manage_aws_auth_configmap = true
 
 
@@ -82,6 +87,7 @@ module "eks" {
     }
   }
 
+  #(lpartie hedhi mbadla khater l ASG)
   eks_managed_node_group_defaults = {
     ami_type       = "AL2_x86_64"
     instance_types = ["m6i.large", "m5.large", "m5n.large", "m5zn.large"]
@@ -94,6 +100,7 @@ module "eks" {
     iam_role_attach_cni_policy = true
   }
 
+  #(lpartie hedhi mbadla khater l ASG)
   eks_managed_node_groups = {
     # Default node group - as provided by AWS EKS
     default_node_group = {
